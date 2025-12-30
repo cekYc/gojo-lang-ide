@@ -38,8 +38,8 @@ npm start
 
 ---
 
-## Lisans
-Bu proje GNU GPLv3 lisansı ile lisanslanmıştır.
+## License
+This project is licensed under the GNU GPLv3 license.
 Copyright (c) 2025 cekYc
 
 *This project was developed for educational purposes.
