@@ -1,33 +1,33 @@
 # Gojo Lang IDE
 
-> "Bütün gün ve gece boyunca, sadece ben onurluyum." - Gojo Satoru
+> “Throughout Heaven and Earth, I Alone Am The Honored One” - Gojo Satoru
 
-Gojo Lang IDE, tarayıcı tabanlı, Jujutsu Kaisen temalı ve mobil uyumlu bir **programlama dili geliştirme ortamıdır.**
-Python (Backend mantığı) ve React (Frontend) kullanılarak geliştirilmiş, **Pyodide** teknolojisi ile tarayıcıda sunucusuz çalışmaktadır.
+Gojo Lang IDE is a browser-based, Jujutsu Kaisen-themed, mobile-friendly **programming language development environment.**
+Developed using Python (backend logic) and React (frontend), it runs serverless in the browser using **Pyodide** technology.
 
-🔗 **Canlı Demo:** [https://gojo-lang-ide.netlify.app](https://gojo-lang-ide.netlify.app)
+**Live Demo:** [https://gojo-lang-ide.netlify.app](https://gojo-lang-ide.netlify.app)
 
-## ✨ Özellikler
+## Features
 
-* **WebAssembly Gücü:** Pyodide sayesinde Python tabanlı yorumlayıcı tarayıcıda anlık çalışır.
-* **Mobil Uyumlu:** Telefondan kod yazma ve çalıştırma desteği.
-* **Görsel Efektler:**
-    * *Başarılı Çalışma:* Domain Expansion (Mor Efekt)
-    * *Hata:* Cursed Energy (Kırmızı Titreme)
-* **Dosya Sistemi:** `.gj` uzantılı dosyaları İndirme ve Yükleme (Upload/Download).
-* **Jujutsu Parşömeni:** Entegre dokümantasyon paneli.
-* **⌨Monaco Editor:** VS Code benzeri renklendirme ve tamamlama.
+* **WebAssembly Power:** Thanks to Pyodide, the Python-based interpreter runs instantly in the browser.
+* **Mobile Compatible:** Support for writing and running code on your phone.
+* **Visual Effects:**
+    * *Successful Execution:* Domain Expansion (Purple Effect)
+    * *Error:* Cursed Energy (Red Flicker)
+* **File System:** Download and Upload files with the `.gj` extension.
+* **Jujutsu Parchment:** Integrated documentation panel.
+* **⌨Monaco Editor:** VS Code-like highlighting and completion.
 
-## Kullanılan Teknolojiler
+## Technologies Used
 
 * **Frontend:** React.js, Monaco Editor
 * **Core:** Python (Custom Lexer/Parser/Interpreter)
 * **Engine:** Pyodide (WebAssembly)
 * **Deployment:** Netlify
 
-## Kurulum
+## Installation
 
-Projeyi kendi bilgisayarınızda çalıştırmak için:
+To run the project on your own computer:
 
 ```bash
 git clone [https://github.com/cekYc/gojo-lang-ide.git](https://github.com/cekYc/gojo-lang-ide.git)
@@ -37,4 +37,4 @@ npm start
 \`\`\`
 
 ---
-*Bu proje Eğitim amaçlı geliştirilmiştir.*
+*This project was developed for educational purposes.*AI training GPU ranking
