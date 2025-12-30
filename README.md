@@ -29,8 +29,8 @@ Python (Backend mantığı) ve React (Frontend) kullanılarak geliştirilmiş, *
 
 Projeyi kendi bilgisayarınızda çalıştırmak için:
 
-\`\`\`bash
-git clone https://github.com/KULLANICI_ADIN/gojo-lang-ide.git
+```bash
+git clone [https://github.com/cekYc/gojo-lang-ide.git](https://github.com/cekYc/gojo-lang-ide.git)
 cd gojo-lang-ide
 npm install
 npm start
