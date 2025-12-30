@@ -16,7 +16,7 @@ Developed using Python (backend logic) and React (frontend), it runs serverless 
     * *Error:* Cursed Energy (Red Flicker)
 * **File System:** Download and Upload files with the `.gj` extension.
 * **Jujutsu Parchment:** Integrated documentation panel.
-* **⌨Monaco Editor:** VS Code-like highlighting and completion.
+* **Monaco Editor:** VS Code-like highlighting and completion.
 
 ## Technologies Used
 
