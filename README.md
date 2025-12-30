@@ -38,3 +38,7 @@ npm start
 
 ---
 *This project was developed for educational purposes.*AI training GPU ranking
+
+## Lisans
+Bu proje GNU GPLv3 lisansı ile lisanslanmıştır.
+Copyright (c) 2025 cekYc
