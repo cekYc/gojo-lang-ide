@@ -15,6 +15,14 @@ const GOJO_DOCS = [
     ]
   },
   {
+    category: "Tip Dönüşümleri (ÖNEMLİ!)",
+    items: [
+      { syntax: 'str(10)', desc: 'Sayıyı yazıya çevirir (Birleştirme için şart).' },
+      { syntax: 'int("10")', desc: 'Yazıyı tam sayıya çevirir.' },
+      { syntax: 'float("3.14")', desc: 'Yazıyı ondalıklı sayıya çevirir.' }
+    ]
+  },
+  {
     category: "Giriş / Çıkış (I/O)",
     items: [
       { syntax: 'print "Mesaj"', desc: 'Ekrana yazar (Alt satıra geçmez).' },
@@ -28,7 +36,8 @@ const GOJO_DOCS = [
       { syntax: 'if x > 10 ... finn', desc: 'Eğer koşulu bloğu.' },
       { syntax: 'if ... else ... finn', desc: 'Eğer - Değilse bloğu.' },
       { syntax: 'while x > 0 ... end', desc: 'While döngüsü.' },
-      { syntax: 'for i = 1 to 10 ... con', desc: 'For döngüsü.' }
+      { syntax: 'for i = 1 to 10 ... con', desc: 'For döngüsü.' },
+      { syntax: 'for i = 1 to 10 but 2 ... con', desc: '2\'şer atlayan döngü.' }
     ]
   },
   {
@@ -54,16 +63,18 @@ const GOJO_DOCS = [
       { syntax: 'random(1, 100)', desc: 'Rastgele sayı üretir.' },
       { syntax: 'sqrt(16)', desc: 'Karekök alır (Sonuç: 4.0).' },
       { syntax: 'pow(2, 3)', desc: 'Üs alma (2^3 = 8.0).' },
+      { syntax: 'floor(3.9)', desc: 'Aşağı yuvarlama (3).' },
+      { syntax: 'ceil(3.1)', desc: 'Yukarı yuvarlama (4).' },
       { syntax: 'abs(-50)', desc: 'Mutlak değer.' }
     ]
   },
   {
     category: "Operatörler",
     items: [
-      { syntax: 'isnt', desc: 'Eşit değildir (aynı zamanda != kullanılabilir).' },
-      { syntax: '&&', desc: 'VE operatörü (aynı zamanda "And" kullanılabilir).' },
-      { syntax: '||', desc: 'VEYA (Or) operatörü (aynı zamanda "Or" kullanılabilir).' },
-      { syntax: '!', desc: 'DEĞİL (Not) operatörü (aynı zamanda "Not" kullanılabilir).' }
+      { syntax: 'isnt', desc: 'Eşit değildir (!= yerine).' },
+      { syntax: '&&', desc: 'VE operatörü.' },
+      { syntax: '||', desc: 'VEYA operatörü.' },
+      { syntax: '!', desc: 'DEĞİL operatörü.' }
     ]
   }
 ];

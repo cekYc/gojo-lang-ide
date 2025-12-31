@@ -86,10 +86,9 @@ def run_gojo(filename):
                 return
 
         # --- YENİ: FUN (Fonksiyon Tanımlama) ---
-        # Örn: fun topla(a, b)
+        # --- YENİ: FUN (Fonksiyon Tanımlama) ---
         elif first_word == 'fun':
             try:
-                # Regex ile isim ve parametreleri al
                 match = re.search(r'fun\s+(\w+)\s*\((.*)\)', line)
                 if match:
                     f_name = match.group(1)
@@ -99,13 +98,11 @@ def run_gojo(filename):
                     else:
                         f_args = []
                     
-                    # Fonksiyonu kaydet
                     functions[f_name] = {
                         'args': f_args,
-                        'start_line': i + 1  # Başlangıç satırı: fonksiyon gövdesinin ilk satırı
+                        'start_line': i + 1
                     }
                     
-                    # ÖNEMLİ: Fonksiyonun içini şimdi çalıştırma! 'cursed' bulana kadar atla.
                     nested_fun = 0
                     temp_i = i + 1
                     found_end = False
@@ -118,7 +115,8 @@ def run_gojo(filename):
                         if chk_line[0] == 'fun': nested_fun += 1
                         elif chk_line[0] == 'cursed':
                             if nested_fun == 0:
-                                i = temp_i # Ana döngüyü 'cursed' satırına taşı (atla)
+                                # DÜZELTME BURADA: temp_i + 1 yapıyoruz
+                                i = temp_i + 1 
                                 found_end = True
                                 break
                             nested_fun -= 1
@@ -127,6 +125,9 @@ def run_gojo(filename):
                     if not found_end:
                         print(f"HATA: '{f_name}' fonksiyonu kapatilmamis (cursed eksik).")
                         return
+
+                    continue # Döngü başına dön
+
                 else:
                     print(f"HATA: Hatali fonksiyon tanimi. Ornek: fun isim(a, b)")
                     return
@@ -134,34 +135,33 @@ def run_gojo(filename):
                 print(f"Fonksiyon tanimlama hatasi: {e}")
                 return
 
-        # --- YENİ: CURSED (Fonksiyon Sonu / Return) ---
+       # --- YENİ: CURSED (Fonksiyon Sonu / Return) ---
         elif first_word == 'cursed':
-            # Eğer bir fonksiyon çağrısından geldiysek, geri dön
             if len(call_stack) > 0:
                 ret_entry = call_stack.pop()
-                # ret_entry: (return_line_index, embedded_flag, original_line, start, end)
                 if isinstance(ret_entry, tuple):
                     return_line, embedded, orig_line, cs, ce = ret_entry
                     if embedded:
-                        # Replace the function call in the original line with the returned value literal
                         repl = repr(memory.get('__last_ret__'))
                         new_line = orig_line[:cs] + repl + orig_line[ce:]
-                        # preserve newline if existed
                         if lines[return_line].endswith("\n"):
                             lines[return_line] = new_line.rstrip("\n") + "\n"
                         else:
                             lines[return_line] = new_line
-                        # Re-run the same line after return: set i = return_line - 1 so i +=1 processes it
-                        i = return_line - 1
+                        # DÜZELTME: Embedded ise o satırı tekrar işle (i = return_line)
+                        i = return_line 
                     else:
-                        i = return_line
+                        # DÜZELTME: Değilse bir sonraki satıra geç (i = return_line + 1)
+                        i = return_line + 1
                 else:
-                    # backward compatibility: integer entry
                     i = ret_entry
             else:
-                pass
+                # DÜZELTME: Stack boşsa (tanımlama sonu gibi) bir sonraki satıra geç
+                i += 1
+            
+            continue # Döngü başına dön
 
-        # --- YENİ: RETURN (Fonksiyon İçinden Değer Döndürme) ---
+       # --- YENİ: RETURN (Fonksiyon İçinden Değer Döndürme) ---
         elif first_word == 'return':
             expr = line[len('return'):].strip()
             try:
@@ -181,13 +181,19 @@ def run_gojo(filename):
                                 lines[return_line] = new_line.rstrip("\n") + "\n"
                             else:
                                 lines[return_line] = new_line
-                            i = return_line - 1
-                        else:
+                            # DÜZELTME: Embedded ise o satırı tekrar işle
                             i = return_line
+                        else:
+                            # DÜZELTME: Değilse sonrakine geç
+                            i = return_line + 1
                     else:
                         i = ret_entry
                 else:
-                    pass
+                    # DÜZELTME: Eğer return boşlukta kullanıldıysa devam et
+                    i += 1
+                
+                continue # Döngü başına dön
+
             except Exception as e:
                 print(f"Return hatasi: {e}")
                 return
