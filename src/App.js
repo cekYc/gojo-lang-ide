@@ -51,7 +51,7 @@ const GOJO_DOCS = [
   {
     category: "Dizi (Array) İşlemleri",
     items: [
-      { syntax: 'add((liste) "Eleman")', desc: 'Diziye eleman ekler.' },
+      { syntax: 'add (liste) "Eleman"', desc: 'Diziye eleman ekler.' },
       { syntax: 'liste += "Eleman"', desc: 'Alternatif ekleme yöntemi.' },
       { syntax: 'len(liste)', desc: 'Dizinin uzunluğunu verir.' },
       { syntax: 'liste[0] = "Yeni"', desc: 'Eleman değiştirme.' }
