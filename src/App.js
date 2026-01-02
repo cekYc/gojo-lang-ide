@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import { setupGojoLang } from "./GojoConfig";
+import './App.css';
+
 
 // --- JUJUTSU PARŞÖMENİ (DOKÜMANTASYON VERİSİ) ---
 const GOJO_DOCS = [
@@ -90,6 +92,8 @@ const EXAMPLES = {
 const STORAGE_KEY = "gojo_lang_autosave";
 
 function App() {
+  // Ziyaretçi Sayacı State'i
+  const [visitCount, setVisitCount] = useState("...");
   const [output, setOutput] = useState("Sistem başlatılıyor...\n");
   const [isRunning, setIsRunning] = useState(false);
   const [pyodide, setPyodide] = useState(null);
@@ -148,6 +152,56 @@ function App() {
       }
     };
     initPyodide();
+  }, []);
+
+// --- SAYAÇ API (AKILLI & YEDEKLEMELİ) ---
+  useEffect(() => {
+    const fetchUniqueCount = async () => {
+      const NAMESPACE = "gojo-lang-ide-v7";
+      const KEY = "users";
+      const VISITED_KEY = "has_joined_jujutsu_high";
+      const COUNT_KEY = "last_known_sorcerer_count"; // YENİ: Sayıyı yedekleyeceğimiz anahtar
+
+      const BASE_URL = `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}`;
+
+      try {
+        const hasVisited = localStorage.getItem(VISITED_KEY);
+        let response;
+
+        if (!hasVisited) {
+          // İlk kez geliyor -> Artır (/up)
+          response = await fetch(`${BASE_URL}/up`);
+          localStorage.setItem(VISITED_KEY, "true");
+        } else {
+          // Daha önce gelmiş -> Oku (Read)
+          response = await fetch(BASE_URL);
+        }
+
+        if (!response.ok) throw new Error("API Erişilemedi");
+
+        const data = await response.json();
+
+        if (data && typeof data.count === 'number') {
+          setVisitCount(data.count);
+          // BAŞARILI OLUNCA YEDEKLE
+          localStorage.setItem(COUNT_KEY, data.count.toString());
+        }
+
+      } catch (error) {
+        console.error("Sayaç lanetlendi:", error);
+        
+        // --- HATA OLURSA B PLANI ---
+        // Cepten (localStorage) son bilinen sayıyı çıkar
+        const savedCount = localStorage.getItem(COUNT_KEY);
+        if (savedCount) {
+          setVisitCount(savedCount); // Eskiyi göster (Hiç yoktan iyidir)
+        } else {
+          setVisitCount("?"); // Hiç veri yoksa soru işareti
+        }
+      }
+    };
+
+    fetchUniqueCount();
   }, []);
 
   // İndirme İşlevi
@@ -398,6 +452,35 @@ function App() {
           <button onClick={() => { setOutput(""); const term = document.getElementById("live-terminal"); if(term) term.textContent = ""; }} style={{background: "transparent", border: "none", color: "#888", cursor: "pointer", fontSize: "12px"}}>Temizle</button>
         </div>
         <pre id="live-terminal" style={{ flex: 1, padding: "15px", overflow: "auto", margin: 0, whiteSpace: "pre-wrap", color: "#4ec9b0", fontSize: isMobile ? "13px" : "15px" }}>{output}</pre>
+      </div>
+
+{/* --- İLETİŞİM KARTI (CONTACT WIDGET) --- */}
+      <div className="contact-widget">
+        
+        {/* --- SAYAÇ KISMI --- */}
+        <div className="contact-item" style={{borderBottom: "1px solid #444", paddingBottom: "5px", marginBottom: "8px"}}>
+          <span className="contact-label">Jujutsu Sorcerers:</span>
+          <span style={{color: "#ff0055", fontWeight: "bold", textShadow: "0 0 5px red", marginLeft: "auto"}}>
+             {visitCount}
+          </span>
+        </div>
+        {/* ------------------- */}
+
+        <div className="contact-item">
+          <span className="contact-label">Developer:</span>
+          <a href="https://github.com/cekYc" target="_blank" rel="noreferrer" className="contact-link">
+            github.com/cekYc
+          </a>
+        </div>
+        <div className="contact-item">
+          <span className="contact-label">Feedback:</span>
+          <a href="mailto:erayc2640+feedback@gmail.com?subject=Gojo%20Lang%20Feedback" className="contact-link">
+            Send Email
+          </a>
+        </div>
+        <div className="contact-footer">
+          Gojo Lang IDE v7.3
+        </div>
       </div>
     </div>
   );
